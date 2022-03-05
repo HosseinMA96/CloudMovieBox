@@ -115,8 +115,8 @@ $comment=$decode["results"][0]["alternatives"][0]["transcript"];
 // echo $decode['results']['alternatives']." wait <br>"; 
 // // echo count($result);
 ///////////////////////////
-$author_text=$comment;
-
+// $author_text=$comment;
+$author_text=str_replace("'","\'",$comment);
 //check the politness
 $url = "https://api.au-syd.natural-language-understanding.watson.cloud.ibm.com/instances/970a10a4-acb9-420e-ada3-9fd7b63c9cc1/v1/analyze?version=2019-07-12";
 
@@ -164,6 +164,10 @@ if ($anger > 0.4) {
 
 elseif ( $author_name != null)
 {
+    //  $author_text=implode(" ",$author_text);
+
+   
+
     $sql = "INSERT INTO comments (film,name, text)
 VALUES ('" . $_GET["film_name"] . "','" . $author_name . "','" . $author_text . "')";
 
